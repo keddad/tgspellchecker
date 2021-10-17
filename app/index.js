@@ -17,8 +17,6 @@ bot.onText(/\/check*/, (msg, match) => {
         yaspeller.checkText(
             orig.text,
             (err, data) => {
-                console.log(err);
-                console.log(data);
                 if (err) {
                     bot.sendMessage(chatId, "Ошибка при проверке " + err);
                 } else if (data.length > 0) {
