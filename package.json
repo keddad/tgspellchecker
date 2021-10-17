@@ -1,0 +1,15 @@
+{
+  "name": "tgspellchecker",
+  "version": "1.0.0",
+  "main": "app/index.js",
+  "repository": "git@github.com:keddad/tgspellchecker.git",
+  "author": "keddad",
+  "license": "MIT",
+  "dependencies": {
+    "node-telegram-bot-api": "^0.54.0",
+    "yaspeller": "^7.2.0"
+  },
+  "scripts": {
+    "start": "node app/index.js"
+  }
+}
