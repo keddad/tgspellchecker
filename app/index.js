@@ -6,7 +6,6 @@ const token = process.env.TOKEN;
 const bot = new TelegramBot(token, { polling: true });
 
 function genReport(data) {
-    console.log(JSON.stringify(data));
     repeated = data.filter(x => x.code == 2);
     data = data.filter(x => x.s.length > 0);
     out = "Вот что я нашел:\n" + data.reduce((prev, cur) => { return prev + cur.word + " => " + cur.s[0] + "\n" }, "");
