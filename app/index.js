@@ -1,12 +1,22 @@
 const TelegramBot = require('node-telegram-bot-api');
 const yaspeller = require('yaspeller');
 
-const token = process.env.TOKEN;
+const token = process.env.TOKEN || "1399466852:AAGtsUmSVWCYGujuQO8U_lc8dkKCjRZCBDE";
 
 const bot = new TelegramBot(token, { polling: true });
 
 function genReport(data) {
-    return "Вот что я нашел:\n" + data.reduce((prev, cur) => { return prev + cur.word + " => " + cur.s[0] + "\n" }, "")
+    console.log(JSON.stringify(data));
+    repeated = data.filter(x => x.code == 2);
+    data = data.filter(x => x.s.length > 0);
+    out = "Вот что я нашел:\n" + data.reduce((prev, cur) => { return prev + cur.word + " => " + cur.s[0] + "\n" }, "");
+
+    if (repeated.length > 0) {
+        out += "Кроме того, я нашел возможные повторы:\n";
+        out += repeated.reduce((prev, cur) => { return prev + "\"" + cur.word + "\" на позиции " + cur.pos }, "")
+    }
+
+    return out;
 }
 
 bot.onText(/\/check*/, (msg, match) => {
@@ -25,7 +35,7 @@ bot.onText(/\/check*/, (msg, match) => {
                     bot.sendMessage(chatId, "Выглядит нормально.")
                 }
             },
-            { lang: 'ru', format: 'plain', ignoreText: [new RegExp("[А-Я]{2,}", "g")] }
+            { lang: 'ru', format: 'plain', ignoreText: [new RegExp("[А-Я]{2,}", "g")], options: { findRepeatWords: true } }
         );
     } else {
         bot.sendMessage(chatId, "Эта команда должна быть в ответ на текстовое сообщение для проверки");
