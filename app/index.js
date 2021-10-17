@@ -1,7 +1,7 @@
 const TelegramBot = require('node-telegram-bot-api');
 const yaspeller = require('yaspeller');
 
-const token = process.env.TOKEN || "1399466852:AAGtsUmSVWCYGujuQO8U_lc8dkKCjRZCBDE";
+const token = process.env.TOKEN;
 
 const bot = new TelegramBot(token, { polling: true });
 
